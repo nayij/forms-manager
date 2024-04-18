@@ -8,12 +8,12 @@ import * as formMetadata from '~/src/api/forms/form-metadata-repository.js'
 /**
  * Adds an empty form
  * @param {FormConfigurationInput} formConfigurationInput - the desired form configuration to save
- * @param {Request} request - the hapi request object
+ * @param {RequestFormCreation} request - the hapi request object
  * @returns {Promise<FormConfiguration>} - the saved form configuration
  * @throws {InvalidFormDefinitionError} - if the form definition is invalid
  */
 export async function createForm(formConfigurationInput, request) {
-  const { db } = request
+  const { db } = request.server
   const { title } = formConfigurationInput
 
   // Create the slug
@@ -43,11 +43,11 @@ export async function createForm(formConfigurationInput, request) {
 
 /**
  * Lists the available forms
- * @param {Request} request - the hapi request object
+ * @param {RequestDefaults} request - the hapi request object
  * @returns {Promise<FormConfiguration[]>} - form configuration
  */
 export function listForms(request) {
-  const { db } = request
+  const { db } = request.server
 
   return formMetadata.list(db)
 }
@@ -55,11 +55,11 @@ export function listForms(request) {
 /**
  * Retrieves a form configuration
  * @param {string} formId - ID of the form
- * @param {Request} request - the hapi request object
+ * @param {RequestFormById} request - the hapi request object
  * @returns {Promise<FormConfiguration | undefined>} - form configuration
  */
 export async function getForm(formId, request) {
-  const { db } = request
+  const { db } = request.server
   const metadata = await formMetadata.get(formId, db)
 
   return metadata ?? undefined
@@ -89,8 +89,10 @@ function formTitleToSlug(title) {
 }
 
 /**
- * @typedef {import('@hapi/hapi').Request} Request
  * @typedef {import('../types.js').FormConfiguration} FormConfiguration
  * @typedef {import('../types.js').FormConfigurationInput} FormConfigurationInput
+ * @typedef {import('../types.js').RequestDefaults} RequestDefaults
+ * @typedef {import('../types.js').RequestFormById} RequestFormById
+ * @typedef {import('../types.js').RequestFormCreation} RequestFormCreation
  * @typedef {import('@defra/forms-model').FormDefinition} FormDefinition
  */

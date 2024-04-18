@@ -24,7 +24,7 @@ export const forms = {
           method: 'GET',
           path: '/forms/{id}',
           /**
-           * @type {RouteFormById["handler"]}
+           * @param {RequestFormById} request
            */
           async handler(request) {
             return getForm(request.params.id)
@@ -34,9 +34,9 @@ export const forms = {
           method: 'POST',
           path: '/forms',
           /**
-           * @type {RouteFormCreation["handler"]}
+           * @param {RequestFormCreation} request
            */
-          handler: async (request) => {
+          async handler(request) {
             const formConfiguration = await createForm(request.payload)
 
             return {
@@ -49,9 +49,9 @@ export const forms = {
           method: 'GET',
           path: '/forms/{id}/definition',
           /**
-           * @type {RouteFormById["handler"]}
+           * @param {RequestFormById} request
            */
-          handler: async (request) => {
+          async handler(request) {
             return getFormDefinition(request.params.id)
           }
         }
@@ -62,7 +62,7 @@ export const forms = {
 
 /**
  * @typedef {import('../types.js').FormConfigurationInput} FormConfigurationInput
+ * @typedef {import('../types.js').RequestFormById} RequestFormById
+ * @typedef {import('../types.js').RequestFormCreation} RequestFormCreation
  * @typedef {import('@hapi/hapi').ServerRegisterPluginObject<void, void>} ServerRegisterPlugin
- * @typedef {import('@hapi/hapi').ServerRoute<{ Params: { id: string } }>} RouteFormById
- * @typedef {import('@hapi/hapi').ServerRoute<{ Payload: FormConfigurationInput }>} RouteFormCreation
  */

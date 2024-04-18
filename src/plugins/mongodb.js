@@ -29,7 +29,7 @@ export const mongodb = {
 
     server.logger.info(`mongodb connected to ${databaseName}`)
 
-    server.decorate('request', 'db', db)
+    server.decorate('server', 'db', () => db, { apply: true })
   }
 }
 

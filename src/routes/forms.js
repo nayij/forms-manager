@@ -17,6 +17,9 @@ export default [
   {
     method: 'GET',
     path: '/forms',
+    /**
+     * @param {RequestDefaults} request
+     */
     handler(request) {
       return listForms(request)
     }
@@ -25,7 +28,7 @@ export default [
     method: 'POST',
     path: '/forms',
     /**
-     * @type {RouteFormCreation["handler"]}
+     * @param {RequestFormCreation} request
      */
     async handler(request) {
       const { payload } = request
@@ -47,7 +50,7 @@ export default [
     method: 'GET',
     path: '/forms/{id}',
     /**
-     * @type {RouteFormById["handler"]}
+     * @param {RequestFormById} request
      */
     async handler(request) {
       const { params } = request
@@ -70,7 +73,7 @@ export default [
     method: 'GET',
     path: '/forms/{id}/definition',
     /**
-     * @type {RouteFormById["handler"]}
+     * @param {RequestFormById} request
      */
     async handler(request) {
       const { params } = request
@@ -97,9 +100,10 @@ export default [
 ]
 
 /**
- * @typedef {import('@hapi/hapi').ServerRoute} ServerRoute
- * @typedef {import('../api/types.js').FormConfigurationInput} FormConfigurationInput
+ * @typedef {import('../api/types.js').RequestDefaults} RequestDefaults
+ * @typedef {import('../api/types.js').RequestFormById} RequestFormById
+ * @typedef {import('../api/types.js').RequestFormCreation} RequestFormCreation
+ * @typedef {import('@defra/forms-model').FormDefinition} FormDefinition
  * @typedef {import('@hapi/hapi').ServerRegisterPluginObject<void, void>} ServerRegisterPlugin
- * @typedef {import('@hapi/hapi').ServerRoute<{ Params: { id: string } }>} RouteFormById
- * @typedef {import('@hapi/hapi').ServerRoute<{ Payload: FormConfigurationInput }>} RouteFormCreation
+ * @typedef {import('@hapi/hapi').ServerRoute} ServerRoute
  */
