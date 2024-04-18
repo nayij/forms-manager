@@ -18,10 +18,14 @@ export function list(db) {
  * Retrieves a document from the database
  * @param {string} formId - ID of the form
  * @param {Db} db - the mongo database object
- * @returns {Promise<DocumentWithId | null>}
+ * @returns {Promise<WithId<FormConfiguration>>}
  */
 export function get(formId, db) {
-  const coll = db.collection(COLLECTION_NAME)
+  const collBySchema = /** @type {typeof db.collection<FormConfiguration>} */ (
+    db.collection
+  )
+
+  const coll = collBySchema(COLLECTION_NAME)
 
   return coll.findOne({ _id: new ObjectId(formId) })
 }
@@ -40,9 +44,12 @@ export async function create(formConfigurationInput, db) {
 
 /**
  * @typedef {import('mongodb').Db} Db
- * @typedef {import('mongodb').Document} Document
- * @typedef {import('mongodb').WithId<Document>} DocumentWithId
  * @typedef {import('mongodb').InsertOneResult} InsertOneResult
  * @typedef {import('../types.js').FormConfiguration} FormConfiguration
  * @typedef {import('../types.js').FormConfigurationInput} FormConfigurationInput
+ */
+
+/**
+ * @template {object} Schema
+ * @typedef {import('mongodb').WithId<Schema> | null} WithId
  */

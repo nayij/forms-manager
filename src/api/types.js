@@ -1,6 +1,5 @@
 /**
  * @typedef {object} FormConfiguration
- * @property {string} _id - The id of the form
  * @property {string} linkIdentifier - The human-readable slug id of the form
  * @property {string} title - The human-readable title of the form
  * @property {string} organisation - The organisation this form belongs to
@@ -12,7 +11,7 @@
  * @typedef {Request<{ Server: { db: import('mongodb').Db } }>} RequestDefaults
  * @typedef {RequestDefaults & Request<{ Params: { id: string } }>} RequestFormById
  * @typedef {RequestDefaults & Request<{ Payload: FormConfigurationInput }>} RequestFormCreation
- * @typedef {Omit<FormConfiguration, '_id' | 'linkIdentifier'>} FormConfigurationInput
+ * @typedef {Omit<FormConfiguration, 'linkIdentifier'>} FormConfigurationInput
  */
 
 /**
