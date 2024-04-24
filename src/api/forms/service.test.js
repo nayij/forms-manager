@@ -25,9 +25,6 @@ const mockFormMetadataImpl = (/** @type {FormConfigurationInput} */ input) => {
   })
 }
 
-beforeEach(() => {
-  jest.resetAllMocks()
-})
 
 /**
  * Creates a new test form
