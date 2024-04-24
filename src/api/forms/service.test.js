@@ -143,6 +143,5 @@ describe('createForm', () => {
 })
 
 /**
- * @typedef {import('../types.js').FormConfiguration} FormConfiguration
  * @typedef {import('../types.js').FormConfigurationInput} FormConfigurationInput
  */
